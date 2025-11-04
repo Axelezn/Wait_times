@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temps d'Attente Disneyland Paris (Trié par Land)</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f0f8ff; }
+        h1 { color: #0072bb; text-align: center; }
+        #attractions-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 0;
+            list-style: none;
+        }
+        /* Style crucial pour que le titre de Land prenne toute la largeur */
+        h2 { 
+            grid-column: 1 / -1; 
+            color: #E84D3C; 
+            margin-top: 30px; 
+            border-bottom: 2px solid #E84D3C; 
+            padding-bottom: 5px;
+        }
+        .attraction-card {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .name { font-weight: bold; font-size: 1.2em; color: #333; }
+        .wait-time { margin-top: 5px; font-size: 1.1em; }
+        
+        /* Style simple: le temps est vert, l'état fermé est rouge */
+        .time { color: green; font-weight: bold; } 
+        .status-closed { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h1>⏱️ Temps d'Attente - Parc Disneyland Paris</h1>
+
+    <ul id="attractions-list">
+        <li>Chargement des données...</li>
+    </ul>
+
+    <script src="app.js"></script>
+
+</body>
+</html>
