@@ -1,0 +1,124 @@
+/* styles.css */
+
+body { 
+    font-family: 'Arial', sans-serif; 
+    margin: 0; 
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f4f6f9;
+}
+
+h1 { /* Titre Principal Personnalisé */
+    color: #0072bb; 
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 3em; 
+    border-bottom: 4px solid #0072bb; 
+    padding-bottom: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+h2 { /* Sélection du Parc */
+    color: #E84D3C; 
+    margin-bottom: 40px; 
+    font-size: 1.8em;
+    text-align: center;
+}
+
+.park-selection {
+    display: flex; /* Garde les éléments côte à côte par défaut */
+    gap: 40px;
+    /* Permet le passage à la ligne si l'espace manque */
+    flex-wrap: wrap; 
+    /* Centrer les éléments même lorsqu'ils passent à la ligne */
+    justify-content: center; 
+}
+
+.park-link {
+    text-decoration: none;
+    color: #333;
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    width: 250px;
+    border: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+}
+
+.park-link:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+}
+
+.park-image {
+    width: 100%; 
+    height: 150px; 
+    object-fit: contain; 
+    object-position: center; 
+    border-radius: 8px; 
+    margin-bottom: 15px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.park-link h3 { 
+    margin-top: 0;
+    color: #E84D3C; 
+    font-size: 1.6em; 
+    font-weight: 700; 
+    text-transform: capitalize; 
+    margin-bottom: 10px; 
+}
+
+.park-link p {
+    margin: 10px 0 0;
+    color: #555;
+    font-size: 1em;
+}
+
+/* ================================================= */
+/* ⭐ MEDIA QUERY POUR RENDRE L'AFFICHAGE RESPONSIVE ⭐ */
+/* ================================================= */
+
+/* Lorsque l'écran est inférieur ou égal à 600px (typique mobile) */
+@media (max-width: 600px) {
+    
+    /* Réduire le padding et la taille du titre */
+    h1 {
+        font-size: 2em;
+        padding-bottom: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    
+    h2 {
+        font-size: 1.5em;
+        margin-bottom: 30px;
+    }
+    
+    /* La section de sélection s'étend sur toute la largeur disponible */
+    .park-selection {
+        flex-direction: column; /* Force les cartes à être empilées (une colonne) */
+        gap: 20px; /* Réduit l'espace entre les cartes empilées */
+        width: 90%; /* Limite la largeur de la zone de sélection */
+    }
+
+    /* Les cartes s'étendent sur toute la largeur du conteneur parent */
+    .park-link {
+        width: auto; /* Permet à la carte de prendre toute la largeur disponible */
+        padding: 15px; /* Réduit un peu le padding interne */
+    }
+    
+    /* Réduit un peu la hauteur des images */
+    .park-image {
+        height: 120px;
+    }
+}

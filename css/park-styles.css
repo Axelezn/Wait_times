@@ -1,0 +1,137 @@
+/* park_styles.css */
+
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    margin: 20px; 
+    background-color: #f4f6f9; 
+    color: #333;
+}
+h1 { 
+    color: #0072bb; 
+    text-align: center; 
+    margin-bottom: 30px;
+    font-size: 2.8em; 
+    border-bottom: 4px solid #0072bb; 
+    padding-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+#attractions-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 0;
+    list-style: none;
+}
+
+/* Style pour les titres de Land (h2) */
+h2 { 
+    grid-column: 1 / -1; /* Prend toute la largeur de la grille */
+    color: #E84D3C; 
+    margin-top: 30px; 
+    border-bottom: 2px solid #E84D3C; 
+    padding-bottom: 8px;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.attraction-card {
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    border: 1px solid #eee;
+}
+.attraction-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.name { 
+    font-weight: bold; 
+    font-size: 1.2em; 
+    color: #333; 
+    margin-bottom: 5px;
+}
+
+.wait-time { 
+    margin-top: 5px; 
+    font-size: 1.1em;
+}
+
+/* Style de base et classes pour le temps d'attente */
+.time, .time-gold, .time-green, .time-orange, .time-red, .time-default { 
+    color: white; 
+    font-weight: bold; 
+    padding: 4px 8px; 
+    border-radius: 5px; 
+    display: inline-block; 
+    min-width: 60px; 
+    text-align: center;
+} 
+
+/* ⭐ CLASSES DE COULEURS POUR LA COLORATION CONDITIONNELLE ⭐ */
+.time-gold { 
+    background-color: #FFD700; /* Or (Très court/Priorité max) */
+    color: #333; 
+} 
+.time-green { 
+    background-color: #008000; /* Vert (Vaut le coup) */
+} 
+.time-orange { 
+    background-color: #FFA500; /* Orange (Moyen/Long) */
+} 
+.time-red { 
+    background-color: #B22222; /* Rouge (À éviter) */
+}
+.time-default { 
+    background-color: #808080; /* Gris (Statut inconnu/fermé) */
+}
+
+.status-closed { 
+    color: #cc0000; 
+    font-weight: bold; 
+    font-style: italic;
+}
+
+/* Style pour le lien de retour à l'accueil */
+.back-link {
+    display: block; 
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    font-size: 1.1em;
+}
+.back-link a {
+    color: #0072bb; 
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 2px solid #0072bb;
+    border-radius: 8px;
+    transition: background-color 0.3s, color 0.3s;
+}
+.back-link a:hover {
+    background-color: #0072bb;
+    color: white;
+}
+
+/* Media Query pour la réactivité */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2em;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    #attractions-list {
+        gap: 15px;
+        grid-template-columns: 1fr; 
+    }
+    .attraction-card {
+        padding: 10px;
+    }
+    h2 {
+        font-size: 1.3em;
+    }
+}
