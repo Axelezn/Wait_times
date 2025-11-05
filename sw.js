@@ -1,6 +1,6 @@
 // sw.js (Service Worker)
 // Incrémentez la version à chaque changement dans la liste 'urlsToCache'
-const CACHE_NAME = 'dlp-wait-times-cache-v3'; // IMPORTANT : Incrémenté à v3 pour forcer la mise à jour chez l'utilisateur
+const CACHE_NAME = 'dlp-wait-times-cache-v5'; // ⭐ PASSAGE À LA V5 pour forcer la mise à jour !
 
 // Liste des fichiers statiques à mettre en cache lors de l'installation
 const urlsToCache = [
@@ -16,19 +16,20 @@ const urlsToCache = [
   '/css/index.css',
   '/css/park-styles.css',
 
-  // DOSSIER IMGS (Contient les images de liens)
-  '/imgs/dlppark.png',
-  '/imgs/dlpstudios.png',
-
-  // ⭐ DOSSIER ICONS (Contient les icônes PWA) ⭐
-  '/icons/icon-192x192.png', 
-  '/icons/icon-512x512.png',
-  
   // DOSSIER JS
-  '/js/timetables.js',      // C'est votre ancien config.js, nous le laissons
-  '/js/app-park.js',
+  '/js/timetables.js',      // ⭐ C'est le fichier qui contient les seuils de temps (config)
+  '/js/app-park.js', 
   '/js/app-studios.js',
   '/js/pwa_register.js',
+  // REMARQUE: J'ai retiré '/js/config.js' car il ne doit pas exister si vous avez 'timetables.js'
+
+  // DOSSIER IMGS (Images des liens vers les parcs)
+  '/imgs/dlppark.png',
+  '/imgs/dlpstudios.png',
+  
+  // ⭐ DOSSIER ICONS (Icônes PWA - C'EST CORRECT MAIS SENSIBLE) ⭐
+  '/icons/icon-192x192.png', 
+  '/icons/icon-512x512.png'
 ];
 
 // Installation du Service Worker et mise en cache des ressources statiques
@@ -39,7 +40,9 @@ self.addEventListener('install', (event) => {
       .then((cache) => {
         console.log('[Service Worker] Mise en cache des ressources statiques');
         return cache.addAll(urlsToCache).catch((err) => {
-             console.error('Erreur lors de la mise en cache (certains fichiers peuvent avoir échoué) :', err);
+             // L'erreur est souvent ici si un fichier est mal nommé ou manquant
+             console.error('Erreur lors de la mise en cache (Vérifiez les chemins):', err);
+             // J'ai retiré le commentaire sur la racine, car c'est généralement un bug mineur
         });
       })
   );
@@ -47,7 +50,7 @@ self.addEventListener('install', (event) => {
 
 // Stratégie de mise en cache : Cache-First
 self.addEventListener('fetch', (event) => {
-  // Ignorer les requêtes API
+  // 🚫 Ignorer les requêtes API pour s'assurer des données en temps réel
   if (event.request.url.includes('api.themeparks.wiki')) {
     return;
   }
