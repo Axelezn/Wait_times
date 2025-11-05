@@ -2,7 +2,7 @@
     "name": "DLP Wait Times Personnalisé",
     "short_name": "DLP Times",
     "description": "Temps d'attente Disneyland Paris avec coloration conditionnelle personnalisée.",
-    "start_url": "/index.html",
+    "start_url": "./index.html",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#0072bb",
@@ -18,4 +18,5 @@
             "type": "image/png"
         }
     ]
+
 }
