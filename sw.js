@@ -1,35 +1,34 @@
 // sw.js (Service Worker)
 // Incrémentez la version à chaque changement dans la liste 'urlsToCache'
-const CACHE_NAME = 'dlp-wait-times-cache-v2'; 
+const CACHE_NAME = 'dlp-wait-times-cache-v3'; // IMPORTANT : Incrémenté à v3 pour forcer la mise à jour chez l'utilisateur
 
 // Liste des fichiers statiques à mettre en cache lors de l'installation
 const urlsToCache = [
-  // RACINE (IMPORTANT : Le Service Worker doit avoir le chemin de la racine pour l'installation)
+  // RACINE
   '/', 
   '/index.html',
   '/disneyland_park.html',
   '/disneyland_studios.html',
   '/manifest.json',
-  '/README.md', // Optionnel, mais vous pouvez le cacher si vous voulez
+  '/README.md', 
 
   // DOSSIER CSS
   '/css/index.css',
   '/css/park-styles.css',
 
+  // DOSSIER IMGS (Contient les images de liens)
+  '/imgs/dlppark.png',
+  '/imgs/dlpstudios.png',
+
+  // ⭐ DOSSIER ICONS (Contient les icônes PWA) ⭐
+  '/icons/icon-192x192.png', 
+  '/icons/icon-512x512.png',
+  
   // DOSSIER JS
-  '/js/config.js',          // J'ai supposé que config.js est le fichier "timetables.js"
-  '/js/app-park.js',        // ANCIEN : /js/park.js
+  '/js/timetables.js',      // C'est votre ancien config.js, nous le laissons
+  '/js/app-park.js',
   '/js/app-studios.js',
   '/js/pwa_register.js',
-  '/js/timetables.js',      // Ajouté ce fichier aussi, s'il contient du JS essentiel
-
-  // DOSSIER IMGS (Remplace /icons/)
-  '/imgs/dlppark.png',      // L'icône réelle de l'application devra probablement être ici
-  '/imgs/dlpstudios.png',    // L'icône réelle de l'application devra probablement être ici
-  
-  // Icone appli PWA
-   '/icons/icon-192x192.png', 
-  '/icons/icon-512x512.png'
 ];
 
 // Installation du Service Worker et mise en cache des ressources statiques
@@ -40,7 +39,6 @@ self.addEventListener('install', (event) => {
       .then((cache) => {
         console.log('[Service Worker] Mise en cache des ressources statiques');
         return cache.addAll(urlsToCache).catch((err) => {
-             // Il est normal que '/' échoue si l'hébergeur ne le sert pas directement
              console.error('Erreur lors de la mise en cache (certains fichiers peuvent avoir échoué) :', err);
         });
       })
@@ -48,9 +46,8 @@ self.addEventListener('install', (event) => {
 });
 
 // Stratégie de mise en cache : Cache-First
-// Répond avec la version en cache si elle existe, sinon va au réseau.
 self.addEventListener('fetch', (event) => {
-  // 🚫 Ignorer les requêtes API pour s'assurer des données en temps réel (l'API ne doit pas être cachée)
+  // Ignorer les requêtes API
   if (event.request.url.includes('api.themeparks.wiki')) {
     return;
   }
@@ -58,11 +55,9 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request)
       .then((response) => {
-        // Si la ressource est dans le cache, on la retourne (hors-ligne OK)
         if (response) {
           return response;
         }
-        // Sinon, on fait une requête réseau (pour les nouvelles ressources ou les premières fois)
         return fetch(event.request);
       })
   );
@@ -75,7 +70,6 @@ self.addEventListener('activate', (event) => {
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.filter((cacheName) => {
-          // Filtre tous les caches qui commencent par 'dlp-wait-times-cache-' mais qui NE sont PAS le CACHE_NAME actuel
           return cacheName.startsWith('dlp-wait-times-cache-') && cacheName !== CACHE_NAME;
         }).map((cacheName) => {
           return caches.delete(cacheName);
